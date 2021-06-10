@@ -23,8 +23,5 @@ let rss = try await Moji.decode(from: urlRequest)
 #### Encode
 
 ```swift
-let data = Moji.encode(rssFeed)
-
-// You can save this data to a .rss or .xml file
 ```
 

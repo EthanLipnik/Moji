@@ -12,6 +12,15 @@ extension Moji {
         public var guid, title, description, pubDate, content: String?
         public var link: URL?
         
+        public init(guid: String? = nil, title: String? = nil, description: String? = nil, pubDate: String? = nil, content: String? = nil, link: URL? = nil) {
+            self.guid = guid
+            self.title = title
+            self.description = description
+            self.pubDate = pubDate
+            self.content = content
+            self.link = link
+        }
+        
         private enum CodingKeys: String, CodingKey {
             case guid
             case link

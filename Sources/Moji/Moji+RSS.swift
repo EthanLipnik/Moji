@@ -9,7 +9,8 @@ import Foundation
 
 extension Moji {
     public struct RSS: Codable, Hashable {
-        public var title, link, description, language, managingEditor, webMaster, pubDate, lastBuildDate, generator, docs, rating: String?
+        public var title, description, language, managingEditor, webMaster, pubDate, lastBuildDate, generator, docs, rating: String?
+        public var link: URL?
         public var ttl: Int?
         public var items: [Item]?
         
@@ -37,7 +38,7 @@ extension Moji {
             let channel = try? container.decode(RSS.self, forKey: .channel)
 
             self.title = channel?.title ?? (try? container.decode(String.self, forKey: .title))
-            self.link = channel?.link ?? (try? container.decode(String.self, forKey: .link))
+            self.link = channel?.link ?? (try? container.decode(URL.self, forKey: .link))
             self.description = channel?.description ?? (try? container.decode(String.self, forKey: .description))
             self.language = channel?.language ?? (try? container.decode(String.self, forKey: .language))
             self.managingEditor = channel?.managingEditor ?? (try? container.decode(String.self, forKey: .managingEditor))
@@ -75,7 +76,7 @@ extension Moji {
         
         @available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 8.0, *)
         public func getFavicon() async throws -> URL {
-            guard let link = link, !link.isEmpty else { throw URLError(.badURL) }
+            guard let link = link?.absoluteString, !link.isEmpty else { throw URLError(.badURL) }
             let strippedLink = link
                 .replacingOccurrences(of: "https://", with: "")
                 .replacingOccurrences(of: "http://", with: "")

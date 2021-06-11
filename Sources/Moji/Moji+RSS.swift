@@ -79,7 +79,7 @@ extension Moji {
             let strippedLink = link
                 .replacingOccurrences(of: "https://", with: "")
                 .replacingOccurrences(of: "http://", with: "")
-            guard let url = URL(string: "https://favicongrabber.com/api/grab/\(strippedLink)?pretty=true") else { throw URLError(.badURL) }
+            guard let url = URL(string: "https://favicongrabber.com/api/grab/\(strippedLink)") else { throw URLError(.badURL) }
             
             let urlRequest = URLRequest(url: url, cachePolicy: .returnCacheDataElseLoad)
             let (data, _) = try await URLSession.shared.data(for: urlRequest)

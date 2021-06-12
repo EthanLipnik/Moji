@@ -12,7 +12,7 @@ extension Moji {
         public var title, description, language, managingEditor, webMaster, pubDate, lastBuildDate, generator, docs, rating: String?
         public var link: URL?
         public var ttl: Int?
-        public var items: [Item]?
+        public var items: [Item] = []
         
         private enum CodingKeys: String, CodingKey {
             case title
@@ -54,7 +54,7 @@ extension Moji {
             if let entries = try? container.decode([Item].self, forKey: .entries), !entries.isEmpty {
                 self.items = entries
             } else {
-                self.items = channel?.items ?? (try? container.decode([Item].self, forKey: .items))
+                self.items = channel?.items ?? (try? container.decode([Item].self, forKey: .items)) ?? []
             }
         }
         

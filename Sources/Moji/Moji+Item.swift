@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  Moji+Item.swift
 //  
 //
 //  Created by Ethan Lipnik on 6/9/21.
@@ -8,7 +8,14 @@
 import Foundation
 
 extension Moji {
-    public struct Item: Codable, Hashable, Equatable {
+    public class Item: Codable, Hashable, Equatable {
+        public func hash(into hasher: inout Hasher) {
+            hasher.combine(ObjectIdentifier(self))
+        }
+        public static func == (lhs: Moji.Item, rhs: Moji.Item) -> Bool {
+            return lhs.guid == rhs.guid && lhs.title == rhs.title && lhs.description == rhs.description && lhs.content == rhs.content && lhs.pubDate == rhs.pubDate && lhs.link == rhs.link
+        }
+        
         public var guid, title, description, content: String?
         public var pubDate: Date?
         public var link: URL?
@@ -32,7 +39,7 @@ extension Moji {
             case encoded
         }
         
-        public init(from decoder: Decoder) throws {
+        required public init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: CodingKeys.self)
 
             self.guid = try? container.decode(String.self, forKey: .guid)

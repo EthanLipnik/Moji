@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  Moji+RSS.swift
 //  
 //
 //  Created by Ethan Lipnik on 6/9/21.
@@ -8,7 +8,14 @@
 import Foundation
 
 extension Moji {
-    public struct RSS: Codable, Hashable {
+    public class RSS: Codable, Hashable {
+        public func hash(into hasher: inout Hasher) {
+            hasher.combine(ObjectIdentifier(self))
+        }
+        public static func == (lhs: Moji.RSS, rhs: Moji.RSS) -> Bool {
+            return lhs.title == rhs.title && lhs.description == rhs.description && lhs.language == rhs.language
+        }
+        
         public var title, description, language, managingEditor, webMaster, pubDate, lastBuildDate, generator, docs, rating: String?
         public var link: URL?
         public var ttl: Int?
@@ -33,7 +40,7 @@ extension Moji {
             case channel
         }
         
-        public init(from decoder: Decoder) throws {
+        required public init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: CodingKeys.self)
             let channel = try? container.decode(RSS.self, forKey: .channel)
 

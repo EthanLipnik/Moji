@@ -8,7 +8,7 @@
 import Foundation
 
 extension Moji {
-    public class Item: Codable, Hashable, Equatable {
+    open class Item: Codable, Hashable, Equatable {
         public func hash(into hasher: inout Hasher) {
             hasher.combine(ObjectIdentifier(self))
         }

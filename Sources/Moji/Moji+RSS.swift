@@ -8,7 +8,7 @@
 import Foundation
 
 extension Moji {
-    public class RSS: Codable, Hashable {
+    open class RSS: Codable, Hashable {
         public func hash(into hasher: inout Hasher) {
             hasher.combine(ObjectIdentifier(self))
         }
